@@ -13,6 +13,8 @@ const test = base.extend<{ homePage: HomePage }>({
 			"PlanitAutomation234%"
 		);
 		await salesforcePage.loginAsUser("Pet Owner Broome");
+		const homePage = new HomePage(page);
+		use(homePage);
 	},
 });
 
@@ -23,5 +25,6 @@ test("test", async ({ homePage, page }) => {
 	await petManagementPage.registerNewDog();
 
 	const dogRegistrationPage = new DogRegistrationPage(page);
+	await dogRegistrationPage.startApplication();
 	await dogRegistrationPage.fillApplicationForm();
 });

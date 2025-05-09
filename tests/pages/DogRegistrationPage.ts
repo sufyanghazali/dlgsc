@@ -9,10 +9,6 @@ export default class DogRegistrationPage {
 
 	async startApplication() {
 		await this.page.getByRole("button", { name: "Confirm details" }).click();
-		await this.page
-			.locator("runtime_omnistudio_common-input span")
-			.nth(1)
-			.click();
 		await this.page.getByRole("textbox", { name: "Pet date of birth" }).click();
 		await this.page.getByRole("button", { name: "Start application" }).click();
 	}
@@ -54,7 +50,6 @@ export default class DogRegistrationPage {
 		await this.page.getByRole("button", { name: "Next" }).click();
 
 		// Pet activity
-
 		await this.page
 			.getByRole("radiogroup", {
 				name: "Is the dog declared dangerous under The Dog Act 1976?",
@@ -225,5 +220,39 @@ export default class DogRegistrationPage {
 			.first()
 			.click();
 		await this.page.getByRole("button", { name: "Next" }).click();
+
+		// Concession card
+		await this.page
+			.getByRole("radiogroup", {
+				name: "Do you hold a concession card?",
+			})
+			.locator("label")
+			.filter({ hasText: "No" })
+			.locator("span")
+			.first()
+			.click();
+		await this.page.getByRole("button", { name: "Next" }).click();
+
+    // Registration period
+		await this.page
+			.getByRole("radiogroup", {
+				name: "How long do you want to register your pet for?",
+			})
+			.locator("label")
+			.filter({ hasText: "1 year" })
+			.locator("span")
+			.nth(2)
+			.click();
+		await this.page.getByRole("button", { name: "Next" }).click();
+
+    // Review and declare
+		await this.page
+			.locator("label")
+			.filter({ hasText: "I have read and accept the declaration" })
+			.locator("span")
+			.first()
+			.click();
+
+		await this.page.getByRole("button", { name: "Submit" }).click();
 	}
 }
